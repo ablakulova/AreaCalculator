@@ -1,0 +1,28 @@
+CREATE TABLE Category
+(
+   ID int NOT NULL PRIMARY KEY,
+   CategoryName nvarchar(50)
+);
+
+CREATE TABLE Product
+(
+  ID int NOT NULL PRIMARY KEY,
+  ProductName nvarchar(50)
+);
+
+CREATE TABLE ProductCategory 
+(
+   ProductID int NOT NULL FOREIGN KEY REFERENCES Product(ID),
+   CategoryID int NOT NULL FOREIGN KEY REFERENCES Category(ID),
+   PRIMARY KEY(ProductID, CategoryID)
+);
+
+/* SQL запрос для выбора всех пар «Имя продукта – Имя категории». */
+SELECT p.ProductName, c.CategoryName 
+FROM Product p
+LEFT JOIN ProductCategory pc 
+   ON p.ID = pc.ProductID
+LEFT JOIN Category c
+  ON pc.CategoryId = c.ID;
+
+
